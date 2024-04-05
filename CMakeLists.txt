@@ -15,8 +15,18 @@ add_subdirectory(coralmicro)
 
 add_executable_m7(coralmicro-app
         main.cc
+        M4_EXECUTABLE
+        coralmicro-app-m4
 )
 
 target_link_libraries(coralmicro-app
-        libs_base-m7_freertos
+        libs_base-m7_freertos 
+)
+
+add_executable_m4(coralmicro-app-m4
+        main_m4.cc
+)
+
+target_link_libraries(coralmicro-app-m4
+        libs_base-m4_freertos
 )

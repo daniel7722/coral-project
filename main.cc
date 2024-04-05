@@ -14,15 +14,14 @@
 
 #include <cstdio>
 
-#include "libs/base/led.h"
-#include "third_party/freertos_kernel/include/FreeRTOS.h"
-#include "third_party/freertos_kernel/include/task.h"
+#include "libs/base/ipc_m7.h"
+#include "libs/base/mutex.h"
 
-extern "C" [[noreturn]] void app_main(void *param) {
-  (void)param;
-  // Turn on Status LED to show the board is on.
-  LedSet(coralmicro::Led::kStatus, true);
+extern "C" void app_main(void *param) {
+    (void)param;
+    printf("Multicore LED Example!\r\n");
 
-  printf("Hello out-of-tree world!\r\n");
-  vTaskSuspend(nullptr);
+    coralmicro::IpcM7::GetSingleton()->StartM4();
+    CHECK(coralmicro::IpcM7::GetSingleton()->M4IsAlive(500));
+    vTaskSuspend(nullptr);
 }
